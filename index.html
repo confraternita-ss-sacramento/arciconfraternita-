@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Arciconfraternita</title>
+  
+  <!-- Collegamento al file Manifest per Android e Chrome -->
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- Colore barra superiore telefono (Bordeaux scuro) -->
+  <meta name="theme-color" content="#3B0D11">
+  
+  <!-- Impostazioni per iPhone / iPad (iOS) -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Arciconfraternita">
+  <link rel="apple-touch-icon" href="icon-512.png">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #3B0D11;
+    }
+    iframe {
+      position: fixed;
+      top: -32px; /* Spinge la barra azzurra di Google fuori dallo schermo */
+      left: 0;
+      width: 100%;
+      height: calc(100% + 32px); /* Compensa lo spostamento verso l'alto */
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <iframe src="https://script.google.com/macros/s/AKfycbxTkPv2lZWqIBz-rpwH2M-EawVrZgvbiZ03jxq4H20kAV4-KUK5__griyF4pVk-UumZ/exec"></iframe>
+</body>
+</html>
