@@ -1,0 +1,21 @@
+{
+  "name": "SS. Sacramento - Anagrafe Confratelli",
+  "short_name": "SS. Sacramento",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#7a1c1c",
+  "theme_color": "#7a1c1c",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icona.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "icona.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
