@@ -3,43 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Arciconfraternita</title>
-  
-  <!-- Collegamento al file Manifest per Android e Chrome -->
+  <meta name="theme-color" content="#7a1c1c">
+  <title>SS. Sacramento</title>
   <link rel="manifest" href="manifest.json">
-  
-  <!-- Colore barra superiore telefono (Bordeaux scuro) -->
-  <meta name="theme-color" content="#3B0D11">
-  
-  <!-- Impostazioni per iPhone / iPad (iOS) -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Arciconfraternita">
-  <link rel="apple-touch-icon" href="icon-512.png">
-
+  <link rel="apple-touch-icon" href="icona.jpg">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background-color: #7a1c1c; font-family: sans-serif; }
+    iframe {
       width: 100%;
       height: 100%;
-      overflow: hidden;
-      background-color: #3B0D11;
-    }
-    iframe {
-      position: fixed;
-      top: -32px; /* Spinge la barra azzurra di Google fuori dallo schermo */
-      left: 0;
-      width: 100%;
-      height: calc(100% + 32px); /* Compensa lo spostamento verso l'alto */
       border: none;
+      display: block;
+    }
+    #installBanner {
+      display: none;
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      background: #ffffff;
+      border: 2px solid #d4af37;
+      border-radius: 14px;
+      padding: 12px 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+      z-index: 9999;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    #installBanner img {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+    .banner-text {
+      flex: 1;
+      color: #333333;
+      font-size: 14px;
+      line-height: 1.3;
+    }
+    .banner-text strong {
+      display: block;
+      color: #7a1c1c;
+      font-size: 15px;
+    }
+    #btnInstall {
+      background: linear-gradient(135deg, #d4af37, #b58918);
+      color: #ffffff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    #btnCloseBanner {
+      background: transparent;
+      border: none;
+      color: #888888;
+      font-size: 18px;
+      padding: 4px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <iframe src="https://script.google.com/macros/s/AKfycbxTkPv2lZWqIBz-rpwH2M-EawVrZgvbiZ03jxq4H20kAV4-KUK5__griyF4pVk-UumZ/exec"></iframe>
+    <iframe src="https://script.google.com/macros/s/AKfycbzTUR9eRBBuXHYatpScbXRZbj1dTqWfa59YBlFXfj8IeNBvTSuIb-rAljrCxI5T9NxZ/exec" allow="geolocation; microphone; camera"></iframe>
+
+  <div id="installBanner">
+    <img src="icona.jpg" alt="Icona">
+    <div class="banner-text">
+      <strong>SS. Sacramento</strong>
+      Installa l'App sul telefono
+    </div>
+    <button id="btnInstall">Installa</button>
+    <button id="btnCloseBanner">&times;</button>
+  </div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .catch(err => console.log('Errore SW:', err));
+      });
+    }
+
+    let deferredPrompt;
+    const installBanner = document.getElementById('installBanner');
+    const btnInstall = document.getElementById('btnInstall');
+    const btnCloseBanner = document.getElementById('btnCloseBanner');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBanner.style.display = 'flex';
+    });
+
+    btnInstall.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        installBanner.style.display = 'none';
+      }
+    });
+
+    btnCloseBanner.addEventListener('click', () => {
+      installBanner.style.display = 'none';
+    });
+  </script>
 </body>
 </html>
